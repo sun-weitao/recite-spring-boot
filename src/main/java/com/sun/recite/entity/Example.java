@@ -1,6 +1,7 @@
 package com.sun.recite.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,4 +24,8 @@ public class Example implements Serializable{
 	
 	private String text;
 	private String meaning;
+
+	private Date createTime;
+	private Date updateTime;
+
 }
