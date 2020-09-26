@@ -1,5 +1,6 @@
 package com.sun.recite.controller;
 
+import com.sun.recite.exception.LoginException;
 import com.sun.recite.models.AuthenticationRequest;
 import com.sun.recite.models.AuthenticationResponse;
 import com.sun.recite.security.AdminUserDetailsService;
@@ -26,14 +27,13 @@ public class AuthController {
 
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ResponseEntity<?> auth(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        System.out.println("auth   "+authenticationRequest.getUsername()+"  password  "+authenticationRequest.getPassword());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         }
         catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
+            throw new LoginException("Incorrect password");
         }
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
