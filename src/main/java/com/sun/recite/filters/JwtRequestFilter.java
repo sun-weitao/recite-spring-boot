@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author sun
+ * Jwt token 拦截认证
+ */
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter{
     @Autowired

@@ -3,14 +3,20 @@ package com.sun.recite.controller;
 import com.sun.recite.exception.LoginException;
 import com.sun.recite.models.AuthenticationRequest;
 import com.sun.recite.models.AuthenticationResponse;
+import com.sun.recite.models.JsonResult;
 import com.sun.recite.security.AdminUserDetailsService;
 import com.sun.recite.utils.JwtUtil;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,5 +47,14 @@ public class AuthController {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+    
+    
+    @GetMapping("/info")
+    public ResponseEntity<?> info(){
+    	Map<String, Object> userMap = new HashMap<String, Object>();
+    	userMap.put("name","sun");
+    	userMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+    	return ResponseEntity.ok(JsonResult.success(userMap));
     }
 }

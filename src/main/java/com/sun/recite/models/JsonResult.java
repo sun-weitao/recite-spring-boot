@@ -2,13 +2,13 @@ package com.sun.recite.models;
 
 import java.io.Serializable;
 
-public class JsonResult implements Serializable{
+public class JsonResult<T> implements Serializable{
     private String message;
-    private Object data = null;
+    private T data = null;
 
     private Integer code;
 
-    public JsonResult(String message, Object data, Integer code) {
+    public JsonResult(String message, T data, Integer code) {
         this.message = message;
         this.data = data;
         this.code = code;
@@ -20,7 +20,11 @@ public class JsonResult implements Serializable{
     }
 
     public static JsonResult success(){
-        return new JsonResult("操作成功",200);
+        return new JsonResult("操作成功",20000);
+    }
+    
+    public static <T> JsonResult<T> success(T data) {
+    	return new JsonResult("",data,20000);
     }
 
     public String getMessage() {
@@ -35,7 +39,7 @@ public class JsonResult implements Serializable{
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
