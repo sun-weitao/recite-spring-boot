@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.recite.annotation.Rules;
+import com.sun.recite.enums.ValidType;
+
 import lombok.Data;
 
 @Entity
@@ -17,6 +20,7 @@ public class Sentence implements Serializable{
 	@Id
 	private String id;
 	//句型
+	@Rules(type = ValidType.Email,message = "类型不能为空")
 	private String text;
 	//含义
 	private String meaning;

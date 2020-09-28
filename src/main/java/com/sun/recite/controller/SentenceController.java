@@ -1,5 +1,6 @@
 package com.sun.recite.controller;
 
+import com.sun.recite.annotation.Validation;
 import com.sun.recite.entity.Sentence;
 import com.sun.recite.models.JsonResult;
 import com.sun.recite.service.SentenceService;
@@ -27,7 +28,11 @@ public class SentenceController {
     
     
     @GetMapping("/save")
-    public ResponseEntity<JsonResult> save(@RequestBody Sentence sentence){
+    public ResponseEntity<JsonResult> save(
+    		@RequestBody 
+    		@Validation
+    		Sentence sentence
+    ){
     	
         return ResponseEntity.ok(JsonResult.success());
     }
