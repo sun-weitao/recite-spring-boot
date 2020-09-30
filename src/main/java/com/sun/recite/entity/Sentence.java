@@ -11,7 +11,9 @@ import com.sun.recite.annotation.Rules;
 import com.sun.recite.enums.ValidType;
 
 import lombok.Data;
-
+/**
+ * @author sun
+ */
 @Entity
 @Table(name="sentence")
 @Data
@@ -20,11 +22,13 @@ public class Sentence implements Serializable{
 	@Id
 	private String id;
 	//句型
-	@Rules(type = ValidType.Email,message = "类型不能为空")
+	@Rules(type = ValidType.NotNull,message = "句型不能为空")
 	private String text;
 	//含义
+	@Rules(type = ValidType.NotNull,message = "含义不能为空")
 	private String meaning;
-
+	
+	@Rules(type = ValidType.Email,message = "Email格式不正确")
 	private String notice;
 
 	private String method;

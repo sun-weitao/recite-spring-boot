@@ -26,15 +26,14 @@ public class SentenceController {
     	return null;
     }
     
-    
-    @GetMapping("/save")
+    @PostMapping("/save")
     public ResponseEntity<JsonResult> save(
     		@RequestBody 
     		@Validation
     		Sentence sentence
     ){
-    	
-        return ResponseEntity.ok(JsonResult.success());
+    	System.out.println(sentence.getText());
+    	return ResponseEntity.ok(JsonResult.success());
     }
 
 }
