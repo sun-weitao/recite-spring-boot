@@ -25,7 +25,7 @@ public class ValidInterceptor implements HandlerInterceptor{
 //		if(handler instanceof HandlerMethod) {
 //			HandlerMethod handlerMethod = (HandlerMethod)handler;
 //			MethodParameter[] methodParameters = handlerMethod.getMethodParameters();	
-//			for(MethodParameter methodParameter:methodParameters) {				
+//			for(MethodParameter methodP	arameter:methodParameters) {
 //				
 //				Annotation[] annotations = methodParameter.getParameterAnnotations();
 //				boolean isVaild = false;
