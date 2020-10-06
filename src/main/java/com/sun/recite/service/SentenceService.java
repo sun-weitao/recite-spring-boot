@@ -2,6 +2,10 @@ package com.sun.recite.service;
 
 import com.sun.recite.entity.Sentence;
 import com.sun.recite.repository.SentenceRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,9 +19,13 @@ public class SentenceService {
     public SentenceRepository sentenceRepository;
     final static Date now = new Date();
     @Transactional
-    public void save(Sentence sentence){
+    public Sentence save(Sentence sentence){
         sentence.setId(UUID.randomUUID().toString());
         sentence.setCreateTime(now);
-        sentenceRepository.save(sentence);
+        return sentenceRepository.save(sentence);
+    }
+
+    public Page<Sentence> pageable(final Pageable pageable){
+        return sentenceRepository.findAll(pageable);
     }
 }

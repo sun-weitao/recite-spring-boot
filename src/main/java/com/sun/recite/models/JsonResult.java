@@ -22,7 +22,11 @@ public class JsonResult<T> implements Serializable{
     public static JsonResult success(){
         return new JsonResult("操作成功",20000);
     }
-    
+
+    public static JsonResult error(String msg) {
+        return new JsonResult(msg,50000);
+    }
+
     public static <T> JsonResult<T> success(T data) {
     	return new JsonResult("",data,20000);
     }

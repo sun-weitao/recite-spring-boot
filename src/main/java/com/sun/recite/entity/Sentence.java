@@ -28,9 +28,10 @@ public class Sentence implements Serializable{
 	@Rules(type = ValidType.NotNull,message = "含义不能为空")
 	private String meaning;
 	
-	@Rules(type = ValidType.Email,message = "Email格式不正确")
+	@Rules(type = ValidType.NotNull,message = "使用注意事项不能为空")
 	private String notice;
 
+	@Rules(type = ValidType.NotNull,message = "使用方法不能为空")
 	private String method;
 
 	private Date createTime;
@@ -90,5 +91,10 @@ public class Sentence implements Serializable{
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	@Override
+	public String toString() {
+		return "["+text+" "+meaning+" "+notice+" "+method+"]";
 	}
 }
