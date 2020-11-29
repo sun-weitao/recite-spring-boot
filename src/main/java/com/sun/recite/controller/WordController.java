@@ -24,17 +24,17 @@ public class WordController {
 	@Resource
 	WordService wordService;
 	
-	@GetMapping("/")
-	public ResponseEntity<?> index(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
-		Page<Word> words = wordService.pageable(pageable);
-		return ResponseEntity.ok(JsonResult.success(words.getContent()));
-	}
+//	@GetMapping("/")
+//	public ResponseEntity<?> index(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
+//		Page<Word> words = wordService.pageable(pageable);
+//		return ResponseEntity.ok(JsonResult.success(words.getContent()));
+//	}
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody @Validation Word word){
 		Word result = wordService.save(word);
 		if(result != null) {
 			return ResponseEntity.ok(JsonResult.success());
 		}
-		return ResponseEntity.ok(JsonResult.error("插入失败"));
+		return ResponseEntity.ok(JsonResult.error("保存失败"));
 	}
 }

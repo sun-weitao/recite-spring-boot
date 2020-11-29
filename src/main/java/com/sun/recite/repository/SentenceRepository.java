@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SentenceRepository extends JpaRepository<Sentence, String> {
+public interface SentenceRepository extends JpaRepository<Sentence, Long> {
     
 }

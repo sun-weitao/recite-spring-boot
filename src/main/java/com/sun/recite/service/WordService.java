@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,14 +18,15 @@ public class WordService {
 	
 	@Resource
 	WordRepository wordRepository;
-	final static Date now = new Date();
+
+	
+	@Transactional
 	public Word save(Word word) {
-		word.setId(UUID.randomUUID().toString());
-		word.setCreateTime(now);
 		return wordRepository.save(word);
 	}
 	
-	public Page<Word> pageable(final Pageable pageable){
-		return wordRepository.findAll(pageable);
-	}
+//	
+//	public Page<Word> pageable(final Pageable pageable){
+//		return wordRepository.findAll(pageable);
+//	}
 }

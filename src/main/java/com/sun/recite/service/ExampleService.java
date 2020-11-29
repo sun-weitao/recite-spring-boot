@@ -11,17 +11,17 @@ import java.util.Date;
 
 @Service
 public class ExampleService {
-    @Resource
-    private ExampleRepository exampleRepository;
-    final static Date now = new Date();
-
-    public Example save(Example example){
-        example.setCreateTime(now);
-        return exampleRepository.save(example);
-    }
-
-    public Page<Example> pageable(String parentId,Pageable pageable){
-        return exampleRepository.findAllByParentId(parentId,pageable);
-    }
+//    @Resource
+//    private ExampleRepository exampleRepository;
+//    final static Date now = new Date();
+//
+//    public Example save(Example example){
+//        example.setCreateTime(now);
+//        return exampleRepository.save(example);
+//    }
+//
+//    public Page<Example> pageable(String parentId,Pageable pageable){
+//        return exampleRepository.findAllByParentId(parentId,pageable);
+//    }
 
 }
