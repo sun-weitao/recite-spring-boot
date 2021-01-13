@@ -1,6 +1,7 @@
 package com.sun.recite.controller;
 
 import com.sun.recite.annotation.Validation;
+import com.sun.recite.entity.Example;
 import com.sun.recite.entity.Sentence;
 import com.sun.recite.models.JsonResult;
 import com.sun.recite.repository.SentenceRepository;
@@ -16,6 +17,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -24,13 +28,7 @@ public class SentenceController {
 
     @Resource
     private SentenceService sentenceService;
-//
-//    @GetMapping("/index")
-//    public ResponseEntity<?> index(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
-//        Page<Sentence> sentences = sentenceService.pageable(pageable);
-//    	return ResponseEntity.ok(JsonResult.success(sentences.getContent()));
-//    }
-//    
+    
     @PostMapping("/save")
     public ResponseEntity<JsonResult> save(
     		@RequestBody 
@@ -51,6 +49,26 @@ public class SentenceController {
     		return ResponseEntity.ok(JsonResult.error("句型不存在,请填写正确参数"));
     	}
     	return ResponseEntity.ok(JsonResult.success(sentence));
+    }
+    
+    @GetMapping("/")
+    public ResponseEntity<JsonResult> page(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
+       Page<Sentence> sentences = sentenceService.pageable(pageable);
+       Map<String, Object> map = new HashMap<String, Object>();
+       map.put("content", sentences.getContent());
+       map.put("total", sentences.getTotalElements());
+       return ResponseEntity.ok(JsonResult.success(map));
+    }
+    
+    @PostMapping("/example/{id}")
+    public ResponseEntity<JsonResult> newExample(
+    		@PathVariable
+    		long id,
+    		@RequestBody 
+    		@Validation
+    		Example example){
+    	
+    	return null;	
     }
     
     @PostMapping("/edit")
