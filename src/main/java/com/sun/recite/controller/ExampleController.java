@@ -11,26 +11,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/example")
 public class ExampleController {
+	
 
-//    @Resource
-//    ExampleService exampleService;
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> index(@PathVariable String id,@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
-//        List<Example> examples = exampleService.pageable(id,pageable).getContent();
-//        return ResponseEntity.ok(JsonResult.success(examples));
-//    }
-//
-//    @PostMapping("/save")
-//    public ResponseEntity<?> save(@RequestBody @Validation Example example){
-//        if(exampleService.save(example) != null){
-//            return ResponseEntity.ok(JsonResult.success());
-//        }
-//        return ResponseEntity.ok(JsonResult.error("操作失败"));
-//    }
+    @Resource
+    ExampleService exampleService;
+    
+    @PostMapping("/edit")
+    public ResponseEntity<JsonResult> edit(
+    		@RequestBody 
+    		@Validation 
+    		Example example){
+    	if(example.getId() == null) {
+    		return ResponseEntity.ok(JsonResult.error("id不为空"));
+    	}
+    	Example updateExample = exampleService.getOne(example.getId());
+    	if(updateExample == null) {
+    		return ResponseEntity.ok(JsonResult.error("该id不存在"));
+    	}
+		example.setCreateTime(updateExample.getCreateTime());
+		example.setUpdateTime(LocalDateTime.now());
+    	Example resultExample = exampleService.modify(example);
+    	if(resultExample != null) {
+    		return ResponseEntity.ok(JsonResult.success());
+    	}
+    	return ResponseEntity.ok(JsonResult.error("编辑失败"));
+    }
 }

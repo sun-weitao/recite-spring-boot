@@ -13,9 +13,5 @@ import javax.persistence.QueryHint;
 import static org.hibernate.jpa.QueryHints.HINT_COMMENT;
 
 public interface ExampleRepository extends JpaRepository<Example,Long>{
-
-//
-////    @QueryHints(value = { @QueryHint(name = HINT_COMMENT, value = "a query for pageable")})
-//    @Query("select e from Example e where e.parentId = :parentId")
-//    public Page<Example> findAllByParentId(@Param("parentId") String parentId, Pageable pageable);
+	
 }

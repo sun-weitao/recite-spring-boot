@@ -23,12 +23,11 @@ import com.sun.recite.service.WordService;
 public class WordController {
 	@Resource
 	WordService wordService;
-	
-//	@GetMapping("/")
-//	public ResponseEntity<?> index(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
-//		Page<Word> words = wordService.pageable(pageable);
-//		return ResponseEntity.ok(JsonResult.success(words.getContent()));
-//	}
+	@GetMapping("/")
+	public ResponseEntity<JsonResult> page(@PageableDefault(value = 10,sort = {"createTime"},direction = Sort.Direction.DESC) Pageable pageable){
+		
+		return null;
+	}
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody @Validation Word word){
 		Word result = wordService.save(word);

@@ -1,6 +1,7 @@
 package com.sun.recite.service;
 
 import com.sun.recite.entity.Example;
+import com.sun.recite.entity.Sentence;
 import com.sun.recite.repository.ExampleRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,17 +12,13 @@ import java.util.Date;
 
 @Service
 public class ExampleService {
-//    @Resource
-//    private ExampleRepository exampleRepository;
-//    final static Date now = new Date();
-//
-//    public Example save(Example example){
-//        example.setCreateTime(now);
-//        return exampleRepository.save(example);
-//    }
-//
-//    public Page<Example> pageable(String parentId,Pageable pageable){
-//        return exampleRepository.findAllByParentId(parentId,pageable);
-//    }
-
+    @Resource
+    private ExampleRepository exampleRepository;
+    public Example modify(Example example) {	
+    	return exampleRepository.save(example);
+    }
+    
+    public Example getOne(long id) {
+    	return exampleRepository.findById(id).orElse(null);
+    }
 }

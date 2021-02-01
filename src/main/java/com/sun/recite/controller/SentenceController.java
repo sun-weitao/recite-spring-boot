@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -67,8 +70,12 @@ public class SentenceController {
     		@RequestBody 
     		@Validation
     		Example example){
-    	
-    	return null;	
+    	  
+    	Sentence sentence = sentenceService.addExample(id, example);
+    	if(sentence != null) {
+    		return ResponseEntity.ok(JsonResult.success());
+    	}
+    	return ResponseEntity.ok(JsonResult.error("操作失败"));	
     }
     
     @PostMapping("/edit")
@@ -84,9 +91,15 @@ public class SentenceController {
         if(updateSentence == null) {
         	return ResponseEntity.ok(JsonResult.error("该句型不存在无法执行更新操作"));
         }
-        //JPA是否自动
-        sentence.setCreateTime(updateSentence.getCreateTime());
         
+        //JPA是否自动
+        if(updateSentence.getExamples().size() > 0) {
+        	sentence.setExamples(updateSentence.getExamples());
+        }else {
+        	sentence.setExamples(new ArrayList<Example>());
+        }
+        sentence.setCreateTime(updateSentence.getCreateTime());
+        sentence.setUpdateTime(LocalDateTime.now());
         Sentence result = sentenceService.save(sentence);
         if(result != null) {
         	return ResponseEntity.ok(JsonResult.success());
@@ -94,5 +107,9 @@ public class SentenceController {
         return ResponseEntity.ok(JsonResult.error("更新失败"));
     }
     
+    @GetMapping("/all")
+    public List<Sentence> all() {
+    	return sentenceService.findAll();
+    }
 
 }

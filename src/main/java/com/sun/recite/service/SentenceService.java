@@ -35,20 +35,24 @@ public class SentenceService {
     public Sentence getOne(long id) {
     	return sentenceRepository.findById(id).orElse(null);
     }
+    
+    public List<Sentence> findAll(){
+    	return sentenceRepository.findAll();
+    }
 
     public Page<Sentence> pageable(final Pageable pageable){
         return sentenceRepository.findAll(pageable);
     }
     
-    public boolean addExample(long sentence_id,Example example) {
+    public Sentence addExample(long sentence_id,Example example) {
     	Sentence sentence = getOne(sentence_id);
     	if(sentence != null) {
     		List<Example> examples = sentence.getExamples();
     		examples.add(example);
     		sentence.setExamples(examples);
-    		return save(sentence) != null; 
+    		return save(sentence); 
     	}
-    	return false;	
+    	return null;	
     }
     
     public boolean modifyExample(long sentence_id,Example example)
