@@ -21,4 +21,8 @@ public class ExampleService {
     public Example getOne(long id) {
     	return exampleRepository.findById(id).orElse(null);
     }
+    
+   public void del(long id) {
+	   exampleRepository.deleteById(id);
+   }
 }

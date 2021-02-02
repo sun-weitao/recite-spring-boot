@@ -3,6 +3,7 @@ package com.sun.recite.controller;
 import com.sun.recite.annotation.Validation;
 import com.sun.recite.entity.Example;
 import com.sun.recite.entity.Sentence;
+import com.sun.recite.exception.HandleException;
 import com.sun.recite.models.JsonResult;
 import com.sun.recite.repository.SentenceRepository;
 import com.sun.recite.service.SentenceService;
@@ -110,6 +111,16 @@ public class SentenceController {
     @GetMapping("/all")
     public List<Sentence> all() {
     	return sentenceService.findAll();
+    }
+    
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<JsonResult> del(@PathVariable long id) throws HandleException{
+    	try {
+    	 	sentenceService.del(id);
+    	}catch (Exception e) {
+    		throw new HandleException("删除失败");
+    	}
+    	return ResponseEntity.ok(JsonResult.success());
     }
 
 }

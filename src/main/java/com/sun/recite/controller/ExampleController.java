@@ -2,6 +2,7 @@ package com.sun.recite.controller;
 
 import com.sun.recite.annotation.Validation;
 import com.sun.recite.entity.Example;
+import com.sun.recite.exception.HandleException;
 import com.sun.recite.models.JsonResult;
 import com.sun.recite.service.ExampleService;
 import org.springframework.data.domain.Pageable;
@@ -43,5 +44,14 @@ public class ExampleController {
     		return ResponseEntity.ok(JsonResult.success());
     	}
     	return ResponseEntity.ok(JsonResult.error("编辑失败"));
+    }
+    @DeleteMapping("/del/{id}")
+    public ResponseEntity<JsonResult> del(@PathVariable long id) throws HandleException{
+    	try {
+    		exampleService.del(id);
+    	}catch(Exception e) {
+    		throw new HandleException("删除失败");
+    	}
+    	return ResponseEntity.ok(JsonResult.success());
     }
 }

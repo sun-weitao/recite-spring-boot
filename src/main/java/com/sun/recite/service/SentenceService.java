@@ -71,4 +71,8 @@ public class SentenceService {
     	return false;
     }
     
+    public void del(long id) {
+    	sentenceRepository.deleteById(id);
+    }
+    
 }
