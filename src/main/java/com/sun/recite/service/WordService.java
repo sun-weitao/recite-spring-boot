@@ -20,8 +20,10 @@ public class WordService {
 	
 	@Resource
 	WordRepository wordRepository;
-
 	
+	public List<Word> findAll(){
+		return wordRepository.findAll();
+	}
 	@Transactional
 	public Word save(Word word) {
 		return wordRepository.save(word);

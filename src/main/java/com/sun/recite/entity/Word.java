@@ -63,8 +63,6 @@ public class Word {
 		this.examples = examples;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}

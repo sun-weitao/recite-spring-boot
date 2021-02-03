@@ -1,14 +1,21 @@
 package com.sun.recite.controller;
 
+import com.sun.recite.entity.Sentence;
+import com.sun.recite.entity.Word;
 import com.sun.recite.exception.LoginException;
 import com.sun.recite.models.AuthenticationRequest;
 import com.sun.recite.models.AuthenticationResponse;
 import com.sun.recite.models.JsonResult;
 import com.sun.recite.security.AdminUserDetailsService;
+import com.sun.recite.service.SentenceService;
+import com.sun.recite.service.WordService;
 import com.sun.recite.utils.JwtUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +35,13 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private AdminUserDetailsService userDetailsService;
+    
+    @Resource
+    private SentenceService sentenceService;
+    
+	@Resource
+	private WordService wordService;
+    
     @Autowired
     private JwtUtil jwtTokenUtil;
 
@@ -56,5 +70,15 @@ public class AuthController {
     	userMap.put("name","sun");
     	userMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
     	return ResponseEntity.ok(JsonResult.success(userMap));
+    }
+    
+    @GetMapping("/all")
+    public ResponseEntity<JsonResult> all(){
+    	List<Sentence> sentences = sentenceService.findAll();
+    	List<Word> words = wordService.findAll();
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("sentences", sentences);
+    	map.put("words", words);
+    	return ResponseEntity.ok(JsonResult.success(map));
     }
 }

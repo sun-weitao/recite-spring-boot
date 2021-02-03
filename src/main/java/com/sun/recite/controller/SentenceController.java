@@ -108,11 +108,6 @@ public class SentenceController {
         return ResponseEntity.ok(JsonResult.error("更新失败"));
     }
     
-    @GetMapping("/all")
-    public List<Sentence> all() {
-    	return sentenceService.findAll();
-    }
-    
     @DeleteMapping("/del/{id}")
     public ResponseEntity<JsonResult> del(@PathVariable long id) throws HandleException{
     	try {
