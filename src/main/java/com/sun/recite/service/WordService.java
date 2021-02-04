@@ -28,7 +28,9 @@ public class WordService {
 	public Word save(Word word) {
 		return wordRepository.save(word);
 	}
-	
+	public Word getOne(long id) {
+		return wordRepository.findById(id).orElse(null);
+	}
 	public Page<Word> pageable(final Pageable pageable){
 		return wordRepository.findAll(pageable);
 	}

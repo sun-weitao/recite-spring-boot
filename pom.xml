@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.sun</groupId>
 	<artifactId>recite</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>recite</name>
 	<description>recite project for Spring Boot</description>
 

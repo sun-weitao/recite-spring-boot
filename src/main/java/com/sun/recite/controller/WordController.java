@@ -1,5 +1,7 @@
 package com.sun.recite.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,5 +71,33 @@ public class WordController {
 			return ResponseEntity.ok(JsonResult.success());
 		}
 		return ResponseEntity.ok(JsonResult.error("操作失败"));
+	}
+	
+	@PostMapping("/edit")
+	public ResponseEntity<JsonResult> edit(
+			@RequestBody
+			@Validation
+			Word word
+			){
+		if(StringUtils.isEmpty(word.getId())) {
+			return ResponseEntity.ok(JsonResult.error("更新操作单词Id不能为空"));
+		}
+		Word updateWord = wordService.getOne(word.getId());
+		if(updateWord == null) {
+			return ResponseEntity.ok(JsonResult.error("该单词不存在无法执行更新操作"));
+		}
+		//JPA是否自动
+        if(updateWord.getExamples().size() > 0) {
+        	word.setExamples(updateWord.getExamples());
+        }else {
+        	word.setExamples(new ArrayList<Example>());
+        }
+        word.setCreateTime(updateWord.getCreateTime());
+        word.setUpdateTime(LocalDateTime.now());
+        Word result = wordService.save(word);
+		if(result != null) {
+			return ResponseEntity.ok(JsonResult.success());
+		}
+        return ResponseEntity.ok(JsonResult.error("更新失败"));
 	}
 }
